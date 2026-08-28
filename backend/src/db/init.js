@@ -9,7 +9,7 @@ database.exec(`
 
     CREATE TABLE IF NOT EXISTS album(
         album_id INTEGER PRIMARY KEY,
-        MBID TEXT NOT NULL UNIQUE,
+        mbid TEXT NOT NULL UNIQUE,
         titulo TEXT NOT NULL,
         artista TEXT NOT NULL,
         data_lancamento TEXT,
@@ -22,7 +22,7 @@ database.exec(`
         album_id INT,
         data TEXT NOT NULL,
         review TEXT,
-        rating INT CHECK (rating >= 1 AND rating <= 5),
+        rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
         FOREIGN KEY (user_id) REFERENCES users(user_id),
         FOREIGN KEY (album_id) REFERENCES album(album_id)
     ) STRICT;
@@ -41,3 +41,4 @@ if (!teste){
     console.log('Utilizador de teste já existia');
 }
 
+//cria as tabelas e um user de teste

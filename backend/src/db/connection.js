@@ -7,3 +7,5 @@ const database = new DatabaseSync(caminho);
 database.exec('PRAGMA foreign_keys = ON;');
 
 export default database;
+
+//este ficheiro cria a database

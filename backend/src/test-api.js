@@ -45,6 +45,25 @@ async function testarGetLogs() {
     console.log(logs);
 }
 
+async function testarPostUsers(nome, email){
+    const resposta = await fetch(`${baseUrl}/users`,{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email })
+    });
+    const user = await resposta.json();
+    console.log(`POST /users (status ${resposta.status}) ->`, user);
+    return user;
+}
+
+async function testarGetUser(email) {
+    const query = email !== undefined ? `?email=${encodeURIComponent(email)}` : '';
+    const resposta = await fetch(`${baseUrl}/users${query}`);
+    const resultado = await resposta.json();
+    console.log(`GET /users${query} (status ${resposta.status}) ->`, resultado);
+    return resultado;
+}
+
 async function correrTestes() {
     await testarRaiz();
 
@@ -62,6 +81,13 @@ async function correrTestes() {
 
     console.log(`A usar o resultado [${indiceEscolhido}]: ${albumEscolhido.titulo} — ${albumEscolhido.artista}`);
     await testarPostLog(albumEscolhido, 4, 'Teste automático via test-api.js');
+
+    await testarPostUsers("maria", "maria@gmail.com");
+
+    // Os 3 casos do GET /users: encontrado, não encontrado, parâmetro em falta
+    await testarGetUser('maria@gmail.com');
+    await testarGetUser('naoexiste@nada.com');
+    await testarGetUser();
 
     await testarGetLogs();
 }

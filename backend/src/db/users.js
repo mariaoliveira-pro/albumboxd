@@ -21,4 +21,21 @@ function createUser(nome, email){
     return newUser;
 }
 
-export default createUser;
+
+function getUser(email){
+    const pesquisar = database.prepare(`SELECT * FROM users where email = ?`);
+
+    if (email === undefined || email === null){
+        throw new Error('email é obrigatório');
+    }
+
+    const user = pesquisar.get(email);
+
+    if (!user){
+        throw new Error("este email não está registado")
+    }
+
+    return user;
+}
+
+export {createUser, getUser}

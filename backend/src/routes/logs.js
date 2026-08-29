@@ -26,7 +26,7 @@ router.get('/logs', async (req, res) => {
     try {
         const user_id = 1;
         const userLogs = getLogsByUser(user_id);
-       return res.json(userLogs);
+        return res.json(userLogs);
     } catch (error) {
         res.status(500).json({ erro: 'Erro ao fazer o pedido' })
     }

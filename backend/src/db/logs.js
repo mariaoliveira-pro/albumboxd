@@ -22,7 +22,7 @@ function createLog(userId, albumID, rating, review){
 
 function getLogsByUser(userID){
 
-    const inserir = database.prepare(`SELECT l.* , a.titulo, a.artista, a.album_cover_url
+    const pesquisar = database.prepare(`SELECT l.* , a.titulo, a.artista, a.album_cover_url
                                         FROM log l JOIN album a ON (l.album_id = a.album_id)
                                         WHERE l.data = (
                                             SELECT MAX(l2.data)
@@ -32,7 +32,7 @@ function getLogsByUser(userID){
                                         ORDER BY l.data DESC`
                                     )
 
-    const resultado = inserir.all(userID);
+    const resultado = pesquisar.all(userID);
 
     return resultado;
 }

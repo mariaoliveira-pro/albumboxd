@@ -11,7 +11,7 @@ router.post('/logs', async (req, res) => {
         const rating = req.body.rating;
         const review = req.body.review;
         const albumNaBD = searchAlbum(album);
-        const user_id = 1;
+        const user_id = req.body.user_id;
 
         const log = createLog(user_id, albumNaBD.album_id, rating, review);
         res.status(201).json(log)
@@ -24,7 +24,7 @@ router.post('/logs', async (req, res) => {
 
 router.get('/logs', async (req, res) => {
     try {
-        const user_id = 1;
+        const user_id = req.query.user_id;
         const userLogs = getLogsByUser(user_id);
         return res.json(userLogs);
     } catch (error) {
